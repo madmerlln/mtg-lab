@@ -61,8 +61,8 @@ const Card = styled.div`
     background-color: #BDBDBD;
     transform: rotateY(180deg);
     }
-    &:hover .front {transform: rotateY(180deg);}
-    &:hover .back {transform: rotateY(360deg);}
+    /* &:hover .front {transform: rotateY(180deg);}
+    &:hover .back {transform: rotateY(360deg);} */
 `;
 
 export default function CardsList(props) {
