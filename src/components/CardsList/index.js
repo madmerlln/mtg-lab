@@ -1,40 +1,41 @@
-import React, {useEffect} from 'react'
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
 const Card = styled.div`
-    width: 256px;
-    height: 356px;
-    position: relative;
-    perspective: 1000px;
-    margin-bottom:30px;
-    cursor:pointer;
-    text-shadow:1px 1px 10px red;
-    h2{
+  width: 256px;
+  height: 356px;
+  position: relative;
+  perspective: 1000px;
+  margin-bottom: 30px;
+  cursor: pointer;
+  text-shadow: 1px 1px 10px red;
+  h2 {
     font-size: 22px;
-    margin:20px;
-    }
-    p{
-    font-size:16px;
-    margin:20px;
-    }
-    hr{
-    border:none;
-    border-bottom:1px solid black !important;
-    margin:20px;
-    }
-    ul{
+    margin: 20px;
+  }
+  p {
+    font-size: 16px;
+    margin: 20px;
+  }
+  hr {
+    border: none;
+    border-bottom: 1px solid black !important;
+    margin: 20px;
+  }
+  ul {
     padding: 0px;
     margin: 20px;
-    }
-    ul h3{
+  }
+  ul h3 {
     font-size: 18px;
-    }
-    ul li{
-    list-style:none;
+  }
+  ul li {
+    list-style: none;
     font-size: 16px;
-    margin-left:20px;
-    }
-    .front, .back {
+    margin-left: 20px;
+  }
+  .front,
+  .back {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -44,40 +45,60 @@ const Card = styled.div`
     backface-visibility: hidden;
     border-radius: 10px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.35);
-    }
-    .front {
-    background-color: #ABABAB;
-    background-image: url(${props => props.theme.imageUrl});
+  }
+  .front {
+    background-color: #ababab;
+    background-image: url(${(props) => props.theme.image_uris.normal});
     background-size: cover;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    }
-    .front img{
-    width:100%;
-    max-width:183px;
-    }
-    .back {
-    background-color: #BDBDBD;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .front img {
+    width: 100%;
+    max-width: 183px;
+  }
+  .back {
+    background-color: #bdbdbd;
     transform: rotateY(180deg);
-    }
-    /* &:hover .front {transform: rotateY(180deg);}
+  }
+  /* &:hover .front {transform: rotateY(180deg);}
     &:hover .back {transform: rotateY(360deg);} */
 `;
 
-export default function CardsList(props) {
-    const {name, text} = props.cardInfo;
+export default function CardsList({
+  cardInfo,
+  menuOptionsControll,
+  menuOptionsConfig,
+}) {
+  const { name, text } = cardInfo;
 
-    useEffect(()=>{
-    },[]);
+  useEffect(() => {}, []);
 
-    return (
-        <Card className="m-card">
-            <div className="front"></div>
-            <div className="back">
-                <h2>{name}</h2>
-                <p>{text}</p>
-            </div>
-        </Card>
-    )
+  const cardOptions = (card, event) => {
+    event.persist();
+    console.log(event);
+    menuOptionsControll(true);
+    menuOptionsConfig({
+      x: event.pageX,
+      y: event.pageY,
+      card: card,
+    });
+  };
+
+  return (
+    <Card
+      className="m-card"
+      onContextMenu={(e) => {
+        e.preventDefault();
+        cardOptions(cardInfo, e);
+      }}
+    >
+      <div className="front"></div>
+      <div className="back">
+        <h2>{name}</h2>
+        <p>{text}</p>
+      </div>
+    </Card>
+  );
 }

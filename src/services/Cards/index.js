@@ -1,5 +1,5 @@
-import axios from "axios";
+import axios from 'axios';
 
-const cards = axios.create({baseURL: 'https://api.magicthegathering.io/v1/'});
+const cards = axios.create({ baseURL: 'https://api.scryfall.com/' });
 
 export default cards;
