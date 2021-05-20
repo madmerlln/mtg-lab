@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
 
 const Card = styled.div`
   width: 256px;
@@ -75,6 +76,24 @@ export default function CardsList({
 
   useEffect(() => {}, []);
 
+  function handleClick() {
+    const options = {
+      method: 'GET',
+      url: 'http://blogdevlucas-com-br.umbler.net/json/api/comment/1',
+      headers: { authorization: 'Basic dW1ibGVyOnRlc3RlaG9zcGVkYWdlbQ==' },
+      mode: 'no-cors',
+    };
+
+    axios
+      .request(options)
+      .then(function (response) {
+        console.log(response.data);
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
+  }
+
   const cardOptions = (card, event) => {
     event.persist();
     console.log(event);
@@ -93,6 +112,7 @@ export default function CardsList({
         e.preventDefault();
         cardOptions(cardInfo, e);
       }}
+      onClick={handleClick}
     >
       <div className="front"></div>
       <div className="back">

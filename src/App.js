@@ -1,9 +1,12 @@
 import React from 'react';
+import { GlobalStorage } from './context/Global';
 import Routes from './routes';
 
 function App() {
   return (
-    <Routes />
+    <GlobalStorage>
+      <Routes />
+    </GlobalStorage>
   );
 }
 

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import gsap from 'gsap';
+import { GlobalContext } from '../../context/Global';
 
 const Options = styled.div`
   display: none;
@@ -33,6 +34,8 @@ const Options = styled.div`
 `;
 
 export default function OptionsMenu({ show, config }) {
+  const global = React.useContext(GlobalContext);
+
   useEffect(() => {
     if (show) {
       const optionsMenu = document.querySelector('.d-optionMenu');
@@ -52,13 +55,6 @@ export default function OptionsMenu({ show, config }) {
     }
   }, [show, config]);
 
-  const addToColection = (card) => {
-    const cardsCollection =
-      JSON.parse(localStorage.getItem('cardsCollection')) || [];
-    cardsCollection.push(card);
-    localStorage.setItem('cardsCollection', JSON.stringify(cardsCollection));
-  };
-
   const goToStore = (url) => {
     window.open(url, '_blank');
   };
@@ -68,7 +64,7 @@ export default function OptionsMenu({ show, config }) {
       <ul>
         <li
           onClick={() => {
-            addToColection(config.card);
+            global.addToCollection(config.card);
           }}
         >
           Adicionar
